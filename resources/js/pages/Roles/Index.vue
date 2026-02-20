@@ -21,6 +21,7 @@ import {
     X,
     CheckCircle2,
     AlertCircle,
+    SquarePen,
 } from 'lucide-vue-next';
 import {
     Card,
@@ -216,7 +217,7 @@ const getPermissionColor = (permissionName: string) => {
     <Head title="Roles" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="container mx-auto p-6">
+        <div class="w-full p-4">
             <!-- Header Section -->
             <div
                 class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
@@ -440,17 +441,19 @@ const getPermissionColor = (permissionName: string) => {
                                                 <DropdownMenuLabel
                                                     >Actions</DropdownMenuLabel
                                                 >
+                                                <DropdownMenuSeparator />
                                                 <DropdownMenuItem
                                                     @click="
                                                         openEditDialog(role)
                                                     "
+                                                    class="text-yellow-600 focus:text-yellow-600"
                                                 >
-                                                    <Edit2
+                                                    <SquarePen
                                                         class="mr-2 h-4 w-4"
                                                     />
-                                                    Edit Role
+                                                    Edit
                                                 </DropdownMenuItem>
-                                                <DropdownMenuSeparator />
+
                                                 <DropdownMenuItem
                                                     @click="
                                                         openDeleteDialog(role)
@@ -460,7 +463,7 @@ const getPermissionColor = (permissionName: string) => {
                                                     <Trash2
                                                         class="mr-2 h-4 w-4"
                                                     />
-                                                    Delete Role
+                                                    Delete
                                                 </DropdownMenuItem>
                                             </DropdownMenuContent>
                                         </DropdownMenu>
