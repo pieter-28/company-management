@@ -24,7 +24,7 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Roles',
+        title: 'Roles & Permissions',
         href: '/roles',
         icon: Settings,
         permission: ['role.create', 'role.update', 'role.view', 'role.delete'],
