@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, router, useForm } from '@inertiajs/vue3';
+import { Head, router, useForm, usePage } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
@@ -9,6 +9,7 @@ import ModalEdit from '@/pages/Roles/Edit.vue';
 import { ref } from 'vue';
 import { Button } from '@/components/ui/button';
 import { computed } from 'vue';
+
 import {
     Plus,
     Trash2,
@@ -65,6 +66,18 @@ import {
     EmptyMedia,
     EmptyTitle,
 } from '@/components/ui/empty';
+
+const page = usePage();
+const userPermissions = page.props.auth.permissions as string[];
+const hasAccess = (permission?: string | string[]) => {
+    if (!permission) return true;
+
+    if (Array.isArray(permission)) {
+        return permission.some((p) => userPermissions.includes(p));
+    }
+
+    return userPermissions.includes(permission);
+};
 
 interface Permission {
     id: number;
@@ -229,7 +242,11 @@ const getPermissionColor = (permissionName: string) => {
                         Manage roles and permissions for your application
                     </p>
                 </div>
-                <Button @click="openCreateDialog" class="gap-2">
+                <Button
+                    v-if="hasAccess('role.create')"
+                    @click="openCreateDialog"
+                    class="gap-2"
+                >
                     <Plus class="h-4 w-4" />
                     Create Role
                 </Button>
@@ -442,6 +459,9 @@ const getPermissionColor = (permissionName: string) => {
                                                 >
                                                 <DropdownMenuSeparator />
                                                 <DropdownMenuItem
+                                                    v-if="
+                                                        hasAccess('role.edit')
+                                                    "
                                                     @click="
                                                         openEditDialog(role)
                                                     "
@@ -454,6 +474,9 @@ const getPermissionColor = (permissionName: string) => {
                                                 </DropdownMenuItem>
 
                                                 <DropdownMenuItem
+                                                    v-if="
+                                                        hasAccess('role.delete')
+                                                    "
                                                     @click="
                                                         openDeleteDialog(role)
                                                     "
