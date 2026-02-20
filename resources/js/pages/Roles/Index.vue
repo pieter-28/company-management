@@ -11,7 +11,6 @@ import { Button } from '@/components/ui/button';
 import { computed } from 'vue';
 import {
     Plus,
-    Edit2,
     Trash2,
     Shield,
     Users,
